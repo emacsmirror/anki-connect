@@ -109,6 +109,16 @@ AUDIO specify the audio information."
       (setq note (append note `(("audio" . ,audio)))))
     (anki-connect-request "addNote" `(("note" . ,note)))))
 
+(defun anki-connect-update-note (id field-alist &optional tags)
+  "Modify the note.
+
+FIELD-ALIST specify the content of the note. "
+  (let* ((tags (or tags []))
+         (note `(("id" . ,id)
+                 ("fields" . ,field-alist)
+                 ("tags" . ,tags))))
+    (anki-connect-request "updateNote" `(("note" . ,note)))))
+
 
 (provide 'anki-connect)
 
